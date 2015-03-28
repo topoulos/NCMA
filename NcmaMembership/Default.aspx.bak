@@ -1,0 +1,68 @@
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeBehind="Default.aspx.cs" Inherits="NcmaMembership._Default" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2.Export, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView.Export" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridLookup" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dx" %>
+
+
+
+
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <dx:aspxbutton runat="server" text="ASPxButton"></dx:aspxbutton>
+    <dx:ASPxButton ID="ASPxButton1" runat="server"  Image-Url="~/images/bigcertbutton.png" PostBackUrl="~/Admin/Certs.aspx">
+    </dx:ASPxButton>
+    <dx:aspxgridview runat="server"></dx:aspxgridview>
+    <dx:aspxgridlookup runat="server"></dx:aspxgridlookup>
+    <dx:aspxgridviewexporter runat="server"></dx:aspxgridviewexporter>
+    <dx:ASPxButton ID="btnMembers" runat="server" Image-Url="~/images/memberbuttonbig.png"  PostBackUrl="~/Admin/Members.aspx">
+    </dx:ASPxButton>
+    <dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" 
+        DataSourceID="odsMembers">
+        <Columns>
+            <dx:GridViewDataTextColumn FieldName="ID" VisibleIndex="0">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="MemberID" VisibleIndex="1">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="DojoID" VisibleIndex="2">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="CertificateTypeID" VisibleIndex="3">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="RankText" VisibleIndex="4">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="InstructorID" VisibleIndex="5">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataTextColumn FieldName="InstructorTypeID" VisibleIndex="6">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataDateColumn FieldName="FromDate" VisibleIndex="7">
+            </dx:GridViewDataDateColumn>
+            <dx:GridViewDataDateColumn FieldName="ThruDate" VisibleIndex="8">
+            </dx:GridViewDataDateColumn>
+            <dx:GridViewDataCheckColumn FieldName="Completed" VisibleIndex="9">
+            </dx:GridViewDataCheckColumn>
+            <dx:GridViewDataTextColumn FieldName="TourneyID" VisibleIndex="10">
+            </dx:GridViewDataTextColumn>
+        </Columns>
+    </dx:ASPxGridView>
+    
+    <asp:ObjectDataSource ID="odsMembers" runat="server" 
+        DataObjectTypeName="NcmaMembership.BLL.Membercerts" DeleteMethod="Delete" 
+        InsertMethod="Insert" SelectMethod="GetAll" 
+        TypeName="NcmaMembership.BLL.Membercerts" UpdateMethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="ID" Type="Int32" />
+        </DeleteParameters>
+    </asp:ObjectDataSource>
+    
+    <br />
+</asp:Content>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsMembersByDojo" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection ConnectionStringObject="Data Source=tcp:s05.winhost.com;Initial Catalog=DB_4170_ncma;User ID=DB_4170_ncma_user;Password=t3l1k0;MultipleActiveResultSets=True" IsAppSettingsProperty="false" Modifier="Assembly" Name="Connection" ParameterPrefix="@" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="vwMemberGridLookupAdapter" GeneratorDataComponentClassName="vwMemberGridLookupAdapter" Name="vwMemberGridLookup" UserDataComponentName="vwMemberGridLookupAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="Connection" DbObjectName="DB_4170_ncma.dbo.vwMemberGridLookup" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT FullName, Last, First, Country, Dojo, MemType, State, DateJoined, DateOfRank, Active, DateLastPaid, ID, RankText FROM dbo.vwMemberGridLookup</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="FullName" DataSetColumn="FullName" />
+              <Mapping SourceColumn="Last" DataSetColumn="Last" />
+              <Mapping SourceColumn="First" DataSetColumn="First" />
+              <Mapping SourceColumn="Country" DataSetColumn="Country" />
+              <Mapping SourceColumn="Dojo" DataSetColumn="Dojo" />
+              <Mapping SourceColumn="MemType" DataSetColumn="MemType" />
+              <Mapping SourceColumn="State" DataSetColumn="State" />
+              <Mapping SourceColumn="DateJoined" DataSetColumn="DateJoined" />
+              <Mapping SourceColumn="DateOfRank" DataSetColumn="DateOfRank" />
+              <Mapping SourceColumn="Active" DataSetColumn="Active" />
+              <Mapping SourceColumn="DateLastPaid" DataSetColumn="DateLastPaid" />
+              <Mapping SourceColumn="ID" DataSetColumn="ID" />
+              <Mapping SourceColumn="RankText" DataSetColumn="RankText" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsMembersByDojo" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="dsMembersByDojo" msprop:Generator_UserDSName="dsMembersByDojo">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vwMemberGridLookup" msprop:Generator_TableClassName="vwMemberGridLookupDataTable" msprop:Generator_TableVarName="tablevwMemberGridLookup" msprop:Generator_TablePropName="vwMemberGridLookup" msprop:Generator_RowDeletingName="vwMemberGridLookupRowDeleting" msprop:Generator_UserTableName="vwMemberGridLookup" msprop:Generator_RowChangingName="vwMemberGridLookupRowChanging" msprop:Generator_RowEvHandlerName="vwMemberGridLookupRowChangeEventHandler" msprop:Generator_RowDeletedName="vwMemberGridLookupRowDeleted" msprop:Generator_RowEvArgName="vwMemberGridLookupRowChangeEvent" msprop:Generator_RowChangedName="vwMemberGridLookupRowChanged" msprop:Generator_RowClassName="vwMemberGridLookupRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FullName" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnFullName" msprop:Generator_ColumnPropNameInRow="FullName" msprop:Generator_ColumnPropNameInTable="FullNameColumn" msprop:Generator_UserColumnName="FullName" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="1023" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Last" msprop:Generator_ColumnVarNameInTable="columnLast" msprop:Generator_ColumnPropNameInRow="Last" msprop:Generator_ColumnPropNameInTable="LastColumn" msprop:Generator_UserColumnName="Last" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="First" msprop:Generator_ColumnVarNameInTable="columnFirst" msprop:Generator_ColumnPropNameInRow="First" msprop:Generator_ColumnPropNameInTable="FirstColumn" msprop:Generator_UserColumnName="First" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Country" msprop:Generator_ColumnVarNameInTable="columnCountry" msprop:Generator_ColumnPropNameInRow="Country" msprop:Generator_ColumnPropNameInTable="CountryColumn" msprop:Generator_UserColumnName="Country" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Dojo" msprop:Generator_ColumnVarNameInTable="columnDojo" msprop:Generator_ColumnPropNameInRow="Dojo" msprop:Generator_ColumnPropNameInTable="DojoColumn" msprop:Generator_UserColumnName="Dojo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="MemType" msprop:Generator_ColumnVarNameInTable="columnMemType" msprop:Generator_ColumnPropNameInRow="MemType" msprop:Generator_ColumnPropNameInTable="MemTypeColumn" msprop:Generator_UserColumnName="MemType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="255" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="State" msprop:Generator_ColumnVarNameInTable="columnState" msprop:Generator_ColumnPropNameInRow="State" msprop:Generator_ColumnPropNameInTable="StateColumn" msprop:Generator_UserColumnName="State" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="2" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="DateJoined" msprop:Generator_ColumnVarNameInTable="columnDateJoined" msprop:Generator_ColumnPropNameInRow="DateJoined" msprop:Generator_ColumnPropNameInTable="DateJoinedColumn" msprop:Generator_UserColumnName="DateJoined" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="DateOfRank" msprop:Generator_ColumnVarNameInTable="columnDateOfRank" msprop:Generator_ColumnPropNameInRow="DateOfRank" msprop:Generator_ColumnPropNameInTable="DateOfRankColumn" msprop:Generator_UserColumnName="DateOfRank" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Active" msprop:Generator_ColumnVarNameInTable="columnActive" msprop:Generator_ColumnPropNameInRow="Active" msprop:Generator_ColumnPropNameInTable="ActiveColumn" msprop:Generator_UserColumnName="Active" type="xs:int" />
+              <xs:element name="DateLastPaid" msprop:Generator_ColumnVarNameInTable="columnDateLastPaid" msprop:Generator_ColumnPropNameInRow="DateLastPaid" msprop:Generator_ColumnPropNameInTable="DateLastPaidColumn" msprop:Generator_UserColumnName="DateLastPaid" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="ID" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
+              <xs:element name="RankText" msprop:Generator_ColumnVarNameInTable="columnRankText" msprop:Generator_ColumnPropNameInRow="RankText" msprop:Generator_ColumnPropNameInTable="RankTextColumn" msprop:Generator_UserColumnName="RankText" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="500" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//vwMemberGridLookup" />
+      <xs:field xpath="ID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

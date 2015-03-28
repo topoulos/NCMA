@@ -1,0 +1,316 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Members.aspx.cs" Inherits="NcmaMembership.Members"  MasterPageFile="~/Site.master"%>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2.Export, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView.Export" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxDocking" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+</asp:Content>
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    
+    <dx:aspxlabel ID="lblTableName" runat="server" Text="Members" 
+        style="font-weight: 700; font-size: large"></dx:aspxlabel> 
+        <br />
+<table cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnPdfExport" runat="server" Text="Export to PDF" UseSubmitBehavior="False"
+                    OnClick="btnPdfExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnXlsExport" runat="server" Text="Export to XLS" UseSubmitBehavior="False"
+                    OnClick="btnXlsExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnXlsxExport" runat="server" Text="Export to XLSX" UseSubmitBehavior="False"
+                    OnClick="btnXlsxExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnRtfExport" runat="server" Text="Export to RTF" UseSubmitBehavior="False"
+                    OnClick="btnRtfExport_Click" />
+            </td>
+            <td>
+                <dx:ASPxButton ID="btnCsvExport" runat="server" Text="Export to CSV" UseSubmitBehavior="False"
+                    OnClick="btnCsvExport_Click" />
+            </td>
+        </tr>
+    </table>
+    
+    <dx:aspxgridview ID="gvMembers" runat="server" AutoGenerateColumns="False" ClientInstanceName="grid"
+            CssFilePath="~/App_Themes/Office2010Blue/{0}/styles.css" CssPostfix="Office2010Blue" 
+            DataSourceID="edMembers" KeyFieldName="ID"
+        SettingsEditing-Mode="PopupEditForm" 
+        OnHtmlRowPrepared="gvMembers_HtmlRowPrepared"  
+    Settings-ShowFilterBar="Visible" Settings-ShowFilterRowMenu="true" >
+        <SettingsBehavior ConfirmDelete="true" />
+        <SettingsText ConfirmDelete="Delete the record?" />
+        <SettingsCookies Enabled="true" StorePaging="true" StoreFiltering="true" />
+        <Images HeaderSortDown-Url="~/images/Down.png" HeaderSortUp-Url="~/images/Up.png">
+            <HeaderSortDown Url="~/images/Down.png">
+            </HeaderSortDown>
+            <HeaderSortUp Url="~/images/Up.png">
+            </HeaderSortUp>
+        </Images>
+        <Columns>
+            <dx:gridviewcommandcolumn VisibleIndex="0" ButtonType="Image" >
+                <EditButton Visible="True" Image-Url="~/images/Edit.png">
+                    <Image Url="~/images/Edit.png">
+                    </Image>
+                </EditButton>
+                <NewButton Visible="false">
+                </NewButton>
+                <DeleteButton Visible="True" Image-Url="~/images/Trash.png">
+                    <Image Url="~/images/Trash.png">
+                    </Image>
+                </DeleteButton>
+                <ClearFilterButton Visible="True">
+                </ClearFilterButton>
+                <UpdateButton Visible="true" Image-Url="~/images/OK.png">
+                    <Image Url="~/images/OK.png">
+                    </Image>
+                </UpdateButton>
+                <CancelButton Visible="true" Image-Url="~/images/Cancel.png">
+                    <Image Url="~/images/Cancel.png">
+                    </Image>
+                </CancelButton>
+                <ClearFilterButton Visible="true" Image-Url="~/images/ClearFilter.png"></ClearFilterButton>
+                <HeaderCaptionTemplate>
+                    <dx:aspximage ID="btnNew" runat="server" Text="New" ImageUrl="~/images/Add.png" 
+                        IsPng="true">
+                        <ClientSideEvents Click="function (s,e) { grid.AddNewRow();}" />
+                    </dx:aspximage>
+                </HeaderCaptionTemplate>
+            </dx:gridviewcommandcolumn>
+
+            <dx:gridviewdatatextcolumn FieldName="ID" ReadOnly="True" VisibleIndex="1" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="LastName" VisibleIndex="2" 
+                Settings-AutoFilterCondition="Contains">
+           
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="FirstName" VisibleIndex="3" 
+                Settings-AutoFilterCondition="Contains">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="MiddleName" VisibleIndex="4" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="Suffix" VisibleIndex="5" Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="Address1" VisibleIndex="6" 
+                visible="false" Settings-AutoFilterCondition="Contains">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="Address2" VisibleIndex="7" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="Address3" VisibleIndex="8" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="City" VisibleIndex="9" visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatacomboboxcolumn FieldName="StateID" VisibleIndex="10" 
+                Visible="true" Caption="State">
+                <PropertiesComboBox DataSourceID="edStates" TextField="StateAbbrev" IncrementalFilteringMode="StartsWith"
+                    ValueField="ID">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatacomboboxcolumn Caption="Country" FieldName="CountryID" 
+                VisibleIndex="11" >
+                <PropertiesComboBox DataSourceID="edCountries" TextField="Name" ValueField="ID" IncrementalFilteringMode="StartsWith">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatatextcolumn FieldName="PostalCode" VisibleIndex="12" 
+                visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="HomePhone" VisibleIndex="13" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="CellPhone" VisibleIndex="14" 
+                Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatatextcolumn FieldName="Email" VisibleIndex="15" Visible="false">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdatadatecolumn FieldName="DOB" VisibleIndex="16" visible="false">
+                <PropertiesDateEdit Spacing="0">
+                </PropertiesDateEdit>
+            </dx:gridviewdatadatecolumn>
+            <dx:gridviewdatacomboboxcolumn Caption="Plan" FieldName="PlanID" 
+                VisibleIndex="17">
+                <PropertiesComboBox DataSourceID="edPlans" TextField="productname" IncrementalFilteringMode="StartsWith"
+                    ValueField="ID">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatacomboboxcolumn Caption="Dojo" FieldName="DojoID" 
+                VisibleIndex="18">
+                <PropertiesComboBox DataSourceID="edDojos" TextField="Name" ValueField="ID" IncrementalFilteringMode="StartsWith">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatacomboboxcolumn Caption="Type" FieldName="MemberTypeID" 
+                VisibleIndex="19">
+                <PropertiesComboBox DataSourceID="edMemTypes" TextField="Name" ValueField="ID" IncrementalFilteringMode="StartsWith">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatadatecolumn FieldName="DateJoined" VisibleIndex="20">
+                <PropertiesDateEdit Spacing="0">
+                </PropertiesDateEdit>
+            </dx:gridviewdatadatecolumn>
+            <dx:gridviewdatadatecolumn FieldName="DateOfRank" VisibleIndex="21">
+                <PropertiesDateEdit Spacing="0">
+                </PropertiesDateEdit>
+            </dx:gridviewdatadatecolumn>
+            <dx:gridviewdatacomboboxcolumn Caption="Rank" FieldName="RankID" 
+                VisibleIndex="22">
+                <PropertiesComboBox DataSourceID="edRanks" TextField="Name" ValueField="ID"  IncrementalFilteringMode="StartsWith">
+                </PropertiesComboBox>
+            </dx:gridviewdatacomboboxcolumn>
+            <dx:gridviewdatacheckcolumn FieldName="Active" VisibleIndex="23">
+                <PropertiesCheckEdit DisplayTextChecked="Active" 
+                    DisplayTextUnchecked="Inactive">
+                    <DisplayImageChecked Url="~/images/check.png" Height="21px" Width="21px">
+                    </DisplayImageChecked>
+                    <DisplayImageUnchecked Height="21px" Url="~/images/blank.png" Width="21px">
+                    </DisplayImageUnchecked>
+                </PropertiesCheckEdit>
+            </dx:gridviewdatacheckcolumn>
+            
+            <dx:gridviewdatadatecolumn FieldName="DateInactive" VisibleIndex="24" 
+                visible="false">
+                <PropertiesDateEdit Spacing="0">
+                </PropertiesDateEdit>
+            </dx:gridviewdatadatecolumn>
+            <dx:gridviewdatadatecolumn FieldName="DateLastPaid" VisibleIndex="25" 
+                visible="true">
+                <PropertiesDateEdit Spacing="0" >
+                </PropertiesDateEdit>
+            </dx:gridviewdatadatecolumn>
+            <dx:gridviewdatatextcolumn FieldName="Comments" VisibleIndex="26" 
+                Visible="False">
+            </dx:gridviewdatatextcolumn>
+        </Columns>
+
+<SettingsEditing Mode="PopupEditForm" PopupEditFormWidth="800px"></SettingsEditing>
+
+        <Settings ShowFilterRow="True" ShowGroupPanel="True" />
+        <Images SpriteCssFilePath="~/App_Themes/Office2010Blue/{0}/sprite.css">
+            <LoadingPanelOnStatusBar Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+            </LoadingPanelOnStatusBar>
+            <LoadingPanel Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+            </LoadingPanel>
+        </Images>
+        <ImagesFilterControl>
+            <LoadingPanel Url="~/App_Themes/Office2010Blue/GridView/Loading.gif">
+            </LoadingPanel>
+        </ImagesFilterControl>
+        <Styles CssFilePath="~/App_Themes/Office2010Blue/{0}/styles.css" 
+            CssPostfix="Office2010Blue">
+            <Header ImageSpacing="5px" SortingImageSpacing="5px">
+            </Header>
+            <LoadingPanel ImageSpacing="5px">
+            </LoadingPanel>
+        </Styles>
+        <StylesPager>
+            <PageNumber ForeColor="#3E4846">
+            </PageNumber>
+            <Summary ForeColor="#1E395B">
+            </Summary>
+        </StylesPager>
+        <StylesEditors ButtonEditCellSpacing="0">
+            <ProgressBar Height="21px">
+            </ProgressBar>
+        </StylesEditors>
+         <Templates>
+            <EditForm>
+                
+                <div style="padding: 4px 4px 3px 4px;" >
+                    <dx:aspxpagecontrol runat="server" ID="pageControl" Width="100%">
+                        <TabPages>
+                            
+                            <dx:tabpage Text="Info" Visible="true">
+                                <ContentCollection>
+                                    <dx:contentcontrol runat="server">
+                                        <dx:aspxgridviewtemplatereplacement ID="Editors" 
+                                            ReplacementType="EditFormEditors" Width="100%"
+                                            runat="server">
+                                        </dx:aspxgridviewtemplatereplacement>
+                                    </dx:contentcontrol>
+                                </ContentCollection>
+                            </dx:tabpage>
+                            <dx:tabpage Text="Notes" Visible="true">
+                                <ContentCollection>
+                                    <dx:contentcontrol runat="server">
+                                        <dx:aspxmemo runat="server" ID="commentsEditor" Text='<%# Eval("Comments")%>' Width="100%"
+                                            Height="93px">
+                                        </dx:aspxmemo>
+                                    </dx:contentcontrol>
+                                </ContentCollection>
+                            </dx:tabpage>
+                        </TabPages>
+                    </dx:aspxpagecontrol>
+                </div>
+                <div style="text-align: right; padding: 2px 2px 2px 2px">
+                    <dx:aspxgridviewtemplatereplacement ID="UpdateButton" ReplacementType="EditFormUpdateButton"
+                        runat="server">
+                    </dx:aspxgridviewtemplatereplacement>
+                    <dx:aspxgridviewtemplatereplacement ID="CancelButton" ReplacementType="EditFormCancelButton"
+                        runat="server">
+                    </dx:aspxgridviewtemplatereplacement>
+                </div>
+            </EditForm>
+            </Templates>
+    </dx:aspxgridview>
+        <dx:ASPxGridViewExporter ID="ASPxGridViewExporter1" runat="server" GridViewID="gvMembers" 
+         ExportedRowType="All" Landscape="true" TopMargin="10" RightMargin="10" LeftMargin="10" BottomMargin="10">
+        </dx:ASPxGridViewExporter>  
+        <asp:EntityDataSource ID="edMembers" runat="server" 
+            ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities"  ContextTypeName="NcmaMembership.MyNcmaEntities"
+            EnableDelete="True" EnableFlattening="False" EnableInsert="True" 
+            EnableUpdate="True" EntitySetName="members" EntityTypeFilter="member">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edStates" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="states">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edCountries" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="countries">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edPlans" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="products">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edDojos" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="dojoes">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edMemTypes" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="membertypes">
+        </asp:EntityDataSource>
+        <asp:EntityDataSource ID="edRanks" runat="server" ContextTypeName="NcmaMembership.MyNcmaEntities"
+            ConnectionString="name=MyNcmaEntities" 
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" 
+        EntitySetName="ranks">
+        </asp:EntityDataSource>
+    </div>
+</asp:Content>

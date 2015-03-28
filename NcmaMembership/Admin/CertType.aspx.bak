@@ -1,0 +1,48 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CertType.aspx.cs" Inherits="NcmaMembership.CertType" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxDocking" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <dx:ASPxLabel ID="lblTableName" runat="server" Text="Certificate Types" 
+        style="font-weight: 700; font-size: large"></dx:ASPxLabel>
+<dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" 
+    DataSourceID="edCertTypes" KeyFieldName="ID">
+    <Columns>
+        <dx:GridViewCommandColumn VisibleIndex="0" Caption=" ">
+            <EditButton Visible="True">
+            </EditButton>
+            <NewButton Visible="True">
+            </NewButton>
+            <DeleteButton Visible="True">
+            </DeleteButton>
+        </dx:GridViewCommandColumn>
+        <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" VisibleIndex="1" Visible="false">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataTextColumn FieldName="Name" VisibleIndex="2">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataTextColumn FieldName="Description" VisibleIndex="3">
+        </dx:GridViewDataTextColumn>
+    </Columns>
+</dx:ASPxGridView>
+<asp:EntityDataSource ID="edCertTypes" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+    EnableDelete="True" EnableFlattening="False" EnableInsert="True" 
+    EnableUpdate="True" EntitySetName="certtypes">
+</asp:EntityDataSource>
+</asp:Content>

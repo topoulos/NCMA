@@ -1,0 +1,316 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Certs.aspx.cs" Inherits="NcmaMembership.Certs" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridLookup" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<%@ Register assembly="DevExpress.Xpo.v10.2.Web, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Xpo" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContent" runat="server">
+<script type="text/javascript">
+
+    function OnMemberChanged(comboMember) {
+        alert('worked!');
+        var key = comboMember.GetGridView().GetRowKey(comboMember.GetGridView().GetFocusedRowIndex());
+        alert(key);
+        grid.GetValuesOnCustomCallback(key, OnGetValues);
+    }
+
+    function OnGetValues(values) {
+        alert("values = " + values);
+        var params = values.split('|');
+        alert(params[0]);
+        if (params.length > 1) {
+            alert("made it here!");
+            //cmbDojo.SetValue(params[0]);
+            //cmbMembersInstructor.SetValue(params[1]);
+
+            //grid.SetEditValue('cmbDojo', params[0]);
+            //grid.SetEditValue('cmbMembersInstructor', params[1]);
+        }
+        else //clear the entries
+        {
+            //cmbDojo.SetValue('');
+            //cmbMembersInstructor.SetValue('');
+//            grid.SetEditValue('cmbDojo', '');
+//            grid.SetEditValue('cmbMembersInstructor', '');
+//        }
+    }
+
+
+</script>
+</asp:Content>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <dx:ASPxLabel ID="lblTableName" runat="server" Text="Certificates" 
+        style="font-weight: 700; font-size: large"></dx:ASPxLabel>
+
+
+<dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" SettingsEditing-Mode="Inline" 
+    DataSourceID="edCerts" KeyFieldName="ID" ClientInstanceName="grid"  EnableCallBacks="true"
+        oncustomdatacallback="ASPxGridView1_CustomDataCallback">
+            <SettingsBehavior ConfirmDelete="true" />
+        <SettingsText ConfirmDelete="Delete the record?" />
+        <SettingsCookies Enabled="true" StorePaging="true" StoreFiltering="true" />
+        <Images HeaderSortDown-Url="~/images/Down.png" HeaderSortUp-Url="~/images/Up.png">
+            <HeaderSortDown Url="~/images/Down.png">
+            </HeaderSortDown>
+            <HeaderSortUp Url="~/images/Up.png">
+            </HeaderSortUp>
+        </Images>
+       
+
+    <Columns>
+             <dx:GridViewCommandColumn VisibleIndex="0" ButtonType="Image">
+                <EditButton Visible="True" Image-Url="~/images/Edit.png">
+                    <Image Url="~/images/Edit.png">
+                    </Image>
+                </EditButton>
+                <NewButton Visible="false">
+                </NewButton>
+                <DeleteButton Visible="True" Image-Url="~/images/Trash.png">
+                    <Image Url="~/images/Trash.png">
+                    </Image>
+                </DeleteButton>
+                <ClearFilterButton Visible="True">
+                </ClearFilterButton>
+                <UpdateButton Visible="true" Image-Url="~/images/OK.png">
+                    <Image Url="~/images/OK.png">
+                    </Image>
+                </UpdateButton>
+                <CancelButton Visible="true" Image-Url="~/images/Cancel.png">
+                    <Image Url="~/images/Cancel.png">
+                    </Image>
+                </CancelButton>
+                <HeaderCaptionTemplate>
+                    <dx:ASPxImage ID="btnNew" runat="server" Text="New" ImageUrl="~/images/Add.png" IsPng="true">
+                        <ClientSideEvents Click="function (s,e) { grid.AddNewRow();}" />
+                    </dx:ASPxImage>
+                </HeaderCaptionTemplate>
+            </dx:GridViewCommandColumn>
+        <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" VisibleIndex="1" 
+            Visible="False">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataComboBoxColumn Caption="Member" FieldName="MemberID" VisibleIndex="2">
+                <PropertiesComboBox DataSourceID="edMembers" IncrementalFilteringMode="Contains"
+                    TextField="FullName" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup1" runat="server" TextFormatString="{1}" DataSourceID="edMembers"
+                        KeyFieldName="ID" Value='<%# Bind("MemberID") %>'  EnableClientSideAPI="true"
+                        IncrementalFilteringMode="Contains" ClientInstanceName="comboMember"
+                         ClientSideEvents-ValueChanged="function(s,e) { OnMemberChanged(s);}" 
+                        GridViewImages-HeaderSortDown-Url="images\Down.png" 
+                        GridViewImages-HeaderSortUp-Url="images\Up.png" AutoGenerateColumns="False" 
+                       >
+                        
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="FullName" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Country" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Dojo" ReadOnly="true"  />
+                            <dx:GridViewDataColumn FieldName="State" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="DateLastPaid" ReadOnly="true" />
+                            <dx:GridViewDataCheckColumn FieldName="Active" VisibleIndex="23">
+                                <PropertiesCheckEdit DisplayTextChecked="Active" 
+                                    DisplayTextUnchecked="Inactive">
+                                    <DisplayImageChecked Url="~/images/check.png" Height="21px" Width="21px">
+                                    </DisplayImageChecked>
+                                    <DisplayImageUnchecked Height="21px" Url="~/images/blank.png" Width="21px">
+                                    </DisplayImageUnchecked>
+                                </PropertiesCheckEdit>
+                            </dx:GridViewDataCheckColumn>
+                        </Columns>
+                        <GridViewImages>
+                            <HeaderSortDown Url="images\Down.png">
+                            </HeaderSortDown>
+                            <HeaderSortUp Url="images\Up.png">
+                            </HeaderSortUp>
+                        </GridViewImages>
+                       
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+        
+        <dx:GridViewDataComboBoxColumn Caption="Dojo" FieldName="DojoID" VisibleIndex="3">
+                <PropertiesComboBox DataSourceID="edDojos" IncrementalFilteringMode="Contains" 
+                    TextField="Name" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup2" runat="server" TextFormatString="{1}" DataSourceID="edDojos" ClientInstanceName="cmbDojo"
+                        KeyFieldName="ID" Value='<%# Bind("DojoID") %>' IncrementalFilteringMode="Contains"
+                        GridViewImages-HeaderSortDown-Url="~/images/Down.png" GridViewImages-HeaderSortUp-Url="~/images/Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="Name" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Style" ReadOnly="true" />
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+        
+        <dx:GridViewDataComboBoxColumn Caption="Cert Type" FieldName="CertificateTypeID" VisibleIndex="3">
+                <PropertiesComboBox DataSourceID="edCertTypes" IncrementalFilteringMode="Contains"
+                    TextField="Name" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup3" runat="server" TextFormatString="{1}" DataSourceID="edCertTypes"
+                        KeyFieldName="ID" Value='<%# Bind("CertificateTypeID") %>' IncrementalFilteringMode="Contains"
+                        GridViewImages-HeaderSortDown-Url="~/images/Down.png" GridViewImages-HeaderSortUp-Url="~/images/Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="Name" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Description" ReadOnly="true" />
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+        <dx:GridViewDataTextColumn Caption="Rank" FieldName="RankText" VisibleIndex="5">
+        </dx:GridViewDataTextColumn>
+       <dx:GridViewDataComboBoxColumn Caption="Member's Instructor" FieldName="InstructorID" VisibleIndex="2">
+                <PropertiesComboBox DataSourceID="edInstructors" IncrementalFilteringMode="Contains"
+                    TextField="FullName" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup1" runat="server" TextFormatString="{1}" DataSourceID="edInstructors"
+                        KeyFieldName="ID" Value='<%# Bind("InstructorID") %>' IncrementalFilteringMode="Contains" ClientInstanceName="cmbMembersInstructor"
+                        GridViewImages-HeaderSortDown-Url="~/images/Down.png" GridViewImages-HeaderSortUp-Url="~/images/Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="FullName" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Dojo" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="DateLastPaid" ReadOnly="true" />
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+ 
+       
+         <dx:GridViewDataComboBoxColumn Caption="Instructor Type" FieldName="InstructorTypeID" VisibleIndex="7">
+                <PropertiesComboBox DataSourceID="edInstructorTypes" IncrementalFilteringMode="Contains"
+                    TextField="Name" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup2" runat="server" TextFormatString="{1}" DataSourceID="edInstructorTypes"
+                        KeyFieldName="ID" Value='<%# Bind("InstructorTypeID") %>' IncrementalFilteringMode="Contains"
+                        GridViewImages-HeaderSortDown-Url="~/images/Down.png" GridViewImages-HeaderSortUp-Url="~/images/Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="InstructorTypeName" ReadOnly="true" />
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+   
+        <dx:GridViewDataDateColumn FieldName="FromDate" VisibleIndex="8">
+        </dx:GridViewDataDateColumn>
+        <dx:GridViewDataDateColumn FieldName="ThruDate" VisibleIndex="9">
+        </dx:GridViewDataDateColumn>
+        <dx:GridViewDataCheckColumn FieldName="Completed" VisibleIndex="10">
+        </dx:GridViewDataCheckColumn>
+        <dx:GridViewDataComboBoxColumn Caption="Tournament" FieldName="TourneyID" VisibleIndex="3">
+                <PropertiesComboBox DataSourceID="edTournaments" IncrementalFilteringMode="Contains"
+                    TextField="Name" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup2" runat="server" TextFormatString="{1}" DataSourceID="edTournaments"
+                        KeyFieldName="ID" Value='<%# Bind("TourneyID") %>' IncrementalFilteringMode="Contains"
+                        GridViewImages-HeaderSortDown-Url="~/images/Down.png" GridViewImages-HeaderSortUp-Url="~/images/Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="TournDate" ReadOnly="true" />
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+        </dx:GridViewDataComboBoxColumn>
+   
+    </Columns>
+
+<SettingsEditing Mode="Inline"></SettingsEditing>
+
+    <Settings ShowFilterRow="True" ShowGroupPanel="True" />
+</dx:ASPxGridView>
+<asp:EntityDataSource ID="edCerts" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+    EnableDelete="True" EnableFlattening="False" EnableInsert="True" 
+    EnableUpdate="True" EntitySetName="membercerts">
+</asp:EntityDataSource>
+<asp:EntityDataSource ID="edDojos" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EnableFlattening="False" EntitySetName="dojoes">
+</asp:EntityDataSource>
+<asp:EntityDataSource ID="edCertTypes" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EnableFlattening="False" EntitySetName="certtypes">
+</asp:EntityDataSource>
+<asp:EntityDataSource ID="edInstructorTypes" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EnableFlattening="False" EntitySetName="instructortypes">
+</asp:EntityDataSource>
+  <asp:EntityDataSource ID="edMembers" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EntitySetName="vwMemberGridLookups" EnableFlattening="False" 
+            
+            Select="it.[FullName], it.[Country], it.[Dojo], it.[State], it.[DateLastPaid], it.[Active], it.[ID]">
+</asp:EntityDataSource>
+  <asp:EntityDataSource ID="edInstructors" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EntitySetName="vwActiveInstructors" EnableFlattening="False" 
+            
+            Select="it.[FullName], it.[Dojo], it.[DateLastPaid], it.[ID]">
+</asp:EntityDataSource>
+    <dx:XpoDataSource ID="XpoDataSource1" runat="server" ServerMode="True">
+    </dx:XpoDataSource>
+<asp:EntityDataSource ID="edTournaments" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" 
+        EnableFlattening="False" EntitySetName="tournaments">
+</asp:EntityDataSource>
+</asp:Content>

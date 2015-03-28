@@ -1,0 +1,75 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="NcmaMembership.SiteMaster" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.11.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head runat="server">
+    <title></title>
+    <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form runat="server">
+    <div class="page">
+        <div class="header">
+            <div class="title">
+                <h1>
+                    <dx:ASPxImage ID="ASPxImage1" runat="server" ImageUrl="~/images/NCMA-logo.png">
+                    </dx:ASPxImage>
+                    NCMA
+                    DATABASE
+                </h1>
+            </div>
+            <div class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
+                        ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Welcome <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
+                            LogoutPageUrl="~/" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </div>
+            <div class="clear hideSkiplink">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
+                        <asp:MenuItem Selectable="false" Text="Edit">
+                           
+                            <asp:MenuItem NavigateUrl="~/Admin/BlackList.aspx" Text="Black List" />
+                             <asp:MenuItem NavigateUrl="~/Admin/MemCertsView.aspx?viewType=incomplete" Text="Certificates" />
+                            <asp:MenuItem NavigateUrl="~/Admin/Dojos.aspx" Text="Dojos" />
+                            <asp:MenuItem NavigateUrl="~/Admin/Instructors.aspx" Text="Instructors" />
+                            <asp:MenuItem NavigateUrl="~/Admin/Members.aspx?viewType=true" Text="Members" />
+                            <asp:MenuItem NavigateUrl="~/Admin/MemberActivity.aspx" Text="Member Activity" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="Reports" Selectable="false">
+                            <asp:MenuItem NavigateUrl="~/Admin/Reports/MembersByDojoReportViewer.aspx" Text="Members By Dojo" />
+                        </asp:MenuItem>
+                        <asp:MenuItem Text="My Account" Selectable="false">
+                            <asp:MenuItem NavigateUrl="~/Account/ChangePassword.aspx" Text="Change Password" />
+                        </asp:MenuItem>
+                    </Items>
+                </asp:Menu>
+            </div>
+        </div>
+        <div class="main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    </form>
+</body>
+</html>

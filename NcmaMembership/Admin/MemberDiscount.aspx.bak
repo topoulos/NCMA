@@ -1,0 +1,128 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MemberDiscount.aspx.cs" Inherits="NcmaMembership.MemberDiscount" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Data.Linq" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxDocking" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxGridLookup" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <dx:aspxlabel ID="lblTableName" runat="server" Text="Member Discount" 
+    style="font-weight: 700; font-size: large"></dx:aspxlabel>
+    <dx:aspxgridview 
+        ID="ASPxGridView1" 
+        runat="server" 
+        AutoGenerateColumns="False" 
+        DataSourceID="edMemDisc" 
+        KeyFieldName="ID" 
+        onrowinserting="ASPxGridView1_RowInserting" 
+        onrowupdating="ASPxGridView1_RowUpdating">
+          <SettingsBehavior ConfirmDelete="true" />
+    <SettingsText ConfirmDelete="Delete the record?" />
+           <Images HeaderSortDown-Url="~/images/Down.png" HeaderSortUp-Url="~/images/Up.png">
+            <HeaderSortDown Url="~/images/Down.png">
+            </HeaderSortDown>
+            <HeaderSortUp Url="~/images/Up.png">
+            </HeaderSortUp>
+            
+        </Images>
+        <Columns>
+           <dx:GridViewCommandColumn VisibleIndex="0" ButtonType="Image">
+                <EditButton Visible="True" Image-Url="~/images/Edit.png">
+                    <Image Url="~/images/Edit.png">
+                    </Image>
+                </EditButton>
+                <NewButton Visible="false">
+                </NewButton>
+                <DeleteButton Visible="True" Image-Url="~/images/Trash.png">
+                    <Image Url="~/images/Trash.png">
+                    </Image>
+                </DeleteButton>
+                <ClearFilterButton Visible="True">
+                </ClearFilterButton>
+                <UpdateButton Visible="true" Image-Url="~/images/OK.png">
+                    <Image Url="~/images/OK.png">
+                    </Image>
+                </UpdateButton>
+                <CancelButton Visible="true" Image-Url="~/images/Cancel.png">
+                    <Image Url="~/images/Cancel.png">
+                    </Image>
+                </CancelButton>
+                <HeaderCaptionTemplate>
+                    <dx:ASPxImage ID="btnNew" runat="server" Text="New" ImageUrl="~/images/Add.png" IsPng="true">
+                        <ClientSideEvents Click="function (s,e) { grid.AddNewRow();}" />
+                    </dx:ASPxImage>
+                </HeaderCaptionTemplate>
+            </dx:GridViewCommandColumn>
+            <dx:gridviewdatatextcolumn FieldName="ID" ReadOnly="True" Visible="False" 
+                VisibleIndex="1">
+            </dx:gridviewdatatextcolumn>
+            <dx:gridviewdataspineditcolumn Caption="Discount" 
+                FieldName="MemberDiscountPercentage" VisibleIndex="3">
+                <PropertiesSpinEdit DisplayFormatString="g" MaxValue="100">
+                </PropertiesSpinEdit>
+            </dx:gridviewdataspineditcolumn>
+   <dx:gridviewdatacomboboxcolumn 
+                Caption="Member" 
+                FieldName="MemberID" 
+                VisibleIndex="2" 
+                Settings-FilterMode="DisplayText" Settings-AutoFilterCondition="Contains">
+                <PropertiesComboBox 
+                    TextFormatString="{0}" 
+                     TextField="FullName"
+                    ValueField="ID" 
+                    ValueType="System.String" 
+                    IncrementalFilteringMode="Contains" 
+                    EnableCallbackMode="true" 
+                    CallbackPageSize="7" 
+                    OnItemRequestedByValue="ItemRequestedByValue" 
+                    OnItemsRequestedByFilterCondition="ItemsRequestedByFilterCondition">
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" AutoFilterCondition="Contains"></Settings>
+                           <EditItemTemplate>
+                               <dx:aspxgridlookup ID="ASPxGridLookup1"
+                                                KeyFieldName="ID"
+                                                TextFormatString="{0}"
+                                                OnDataBound="ASPxGridLookup1_DataBound"
+                                                IncrementalFilteringMode="Contains"
+                                                DataSourceID="edMembers" 
+                                                runat="server">
+                               </dx:aspxgridlookup>
+                           </EditItemTemplate>
+            </dx:gridviewdatacomboboxcolumn>
+        </Columns>
+        <Settings ShowFilterRow="True"  />
+       
+    </dx:aspxgridview>
+<asp:EntityDataSource ID="edMemDisc" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+    EnableDelete="True" EnableFlattening="False" EnableInsert="True" 
+    EnableUpdate="True" EntitySetName="memberdiscounts">
+</asp:EntityDataSource>
+    
+<asp:EntityDataSource ID="edMembers" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EntitySetName="vwMemberGridLookups" EnableFlattening="False" 
+            
+            Select="it.[FullName], it.[Country], it.[Dojo], it.[State], it.[DateLastPaid], it.[Active], it.[ID]">
+</asp:EntityDataSource>
+    
+
+    </asp:Content>

@@ -1,0 +1,65 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="BlackList.aspx.cs" Inherits="NcmaMembership.BlackList" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxDocking" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+
+<%@ Register assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" namespace="DevExpress.Web.ASPxEditors" tagprefix="dx" %>
+
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <dx:ASPxLabel ID="lblTableName" runat="server" Text="Black List" 
+        style="font-weight: 700; font-size: large"></dx:ASPxLabel>
+<dx:ASPxGridView ID="ASPxGridView1" runat="server" AutoGenerateColumns="False" 
+    DataSourceID="edBlackList" KeyFieldName="ID">
+    <Columns>
+        <dx:GridViewCommandColumn VisibleIndex="0">
+            <EditButton Visible="True">
+            </EditButton>
+            <NewButton Visible="True">
+            </NewButton>
+            <DeleteButton Visible="True">
+            </DeleteButton>
+            <ClearFilterButton Visible="True">
+            </ClearFilterButton>
+        </dx:GridViewCommandColumn>
+        <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" VisibleIndex="1">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataComboBoxColumn Caption="Former Member" 
+            FieldName="FormerMemberID" VisibleIndex="2">
+            <PropertiesComboBox DataSourceID="edMembers" EnableFocusedStyle="False" 
+                TextField="FullName" ValueField="ID">
+            </PropertiesComboBox>
+        </dx:GridViewDataComboBoxColumn>
+        <dx:GridViewDataTextColumn FieldName="FirstName" VisibleIndex="3">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataTextColumn FieldName="LastName" VisibleIndex="4">
+        </dx:GridViewDataTextColumn>
+        <dx:GridViewDataMemoColumn FieldName="Reason" VisibleIndex="5">
+        </dx:GridViewDataMemoColumn>
+        <dx:GridViewDataDateColumn FieldName="DateListed" VisibleIndex="6">
+        </dx:GridViewDataDateColumn>
+    </Columns>
+    <Settings ShowFilterRow="True" />
+</dx:ASPxGridView>
+<asp:EntityDataSource ID="edBlackList" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+    EnableDelete="True" EnableFlattening="False" EnableInsert="True" 
+    EnableUpdate="True" EntitySetName="blacklists">
+</asp:EntityDataSource>
+<asp:EntityDataSource ID="edMembers" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+    EnableFlattening="False" EntitySetName="vwMemberLookups">
+</asp:EntityDataSource>
+</asp:Content>

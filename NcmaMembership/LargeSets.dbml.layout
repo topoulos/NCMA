@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="LargeSets">
+  <DataContextMoniker Name="/LargeSetsDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fa250a26-6e15-486b-a621-0f5ab7c5a62d" absoluteBounds="2.125, 1, 2, 5.8092268880208326">
+      <DataClassMoniker Name="/LargeSetsDataContext/member" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e4a8796-2dd1-47e0-a567-c5fea301fd90" absoluteBounds="2.14, 1.46, 1.9700000000000002, 5.249226888020833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fbad8556-811d-4c64-938a-86eb50d4b2d7" absoluteBounds="5.5, 1.75, 2, 3.3093082682291666">
+      <DataClassMoniker Name="/LargeSetsDataContext/vwMemberGridLookup" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2815b57b-b374-4632-9ac9-2a06f1d9150f" absoluteBounds="5.515, 2.21, 1.9700000000000002, 2.7493082682291665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

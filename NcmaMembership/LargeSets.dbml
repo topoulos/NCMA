@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DB_4170_ncma" Class="LargeSetsDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=tcp:s05.winhost.com;Initial Catalog=DB_4170_ncma;Persist Security Info=True;User ID=DB_4170_ncma_user;MultipleActiveResultSets=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DB_4170_ncmaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.member" Member="members">
+    <Type Name="member">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="FirstName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="MiddleName" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Suffix" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Address1" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Address2" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Address3" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="City" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="StateID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CountryID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PostalCode" Type="System.String" DbType="VarChar(12)" CanBeNull="true" />
+      <Column Name="HomePhone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="CellPhone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="DOB" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PlanID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DojoID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemberTypeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DateJoined" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateOfRank" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="RankText" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateInactive" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateLastPaid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Comments" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vwMemberGridLookup" Member="vwMemberGridLookups">
+    <Type Name="vwMemberGridLookup">
+      <Column Name="FullName" Type="System.String" DbType="VarChar(1023) NOT NULL" CanBeNull="false" />
+      <Column Name="Last" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="First" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Dojo" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="MemType" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="State" Type="System.String" DbType="VarChar(2)" CanBeNull="true" />
+      <Column Name="DateJoined" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="DateOfRank" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Active" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DateLastPaid" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RankText" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

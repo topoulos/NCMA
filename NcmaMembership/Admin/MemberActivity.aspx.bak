@@ -1,0 +1,187 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" Inherits="NcmaMembership.MemberActivity" Codebehind="MemberActivity.aspx.cs" %>
+
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxDocking" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxClasses" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTabControl" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridLookup" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v10.2.Export, Version=10.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView.Export" TagPrefix="dx" %>
+<asp:Content ID="HeaderContent" ContentPlaceHolderID="HeadContent" runat="server">
+</asp:Content>
+<asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+    <dx:ASPxLabel ID="lblTableName" runat="server" Text="Member Activity" Style="font-weight: 700;
+        font-size: large">
+    </dx:ASPxLabel>
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnPdfExport" runat="server" Text="Export to PDF" UseSubmitBehavior="False"
+                    OnClick="btnPdfExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnXlsExport" runat="server" Text="Export to XLS" UseSubmitBehavior="False"
+                    OnClick="btnXlsExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnXlsxExport" runat="server" Text="Export to XLSX" UseSubmitBehavior="False"
+                    OnClick="btnXlsxExport_Click" />
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnRtfExport" runat="server" Text="Export to RTF" UseSubmitBehavior="False"
+                    OnClick="btnRtfExport_Click" />
+            </td>
+            <td>
+                <dx:ASPxButton ID="btnCsvExport" runat="server" Text="Export to CSV" UseSubmitBehavior="False"
+                    OnClick="btnCsvExport_Click" />
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" style="margin: 16px 0">
+        <tr>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnRefreshSummaries" runat="server" Text="Refresh Summaries" UseSubmitBehavior="False"
+                    AutoPostBack="false">
+                    <ClientSideEvents Click="function(s, e) { grid.PerformCallback('Refresh'); }" />
+                </dx:ASPxButton>
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnSelectAll" runat="server" Text="Select All" UseSubmitBehavior="False"
+                    AutoPostBack="false">
+                    <ClientSideEvents Click="function(s, e) { grid.SelectRows(); }" />
+                </dx:ASPxButton>
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnUnselectAll" runat="server" Text="Unselect All" UseSubmitBehavior="False"
+                    AutoPostBack="false">
+                    <ClientSideEvents Click="function(s, e) { grid.UnselectRows(); }" />
+                </dx:ASPxButton>
+            </td>
+            <td style="padding-right: 4px">
+                <dx:ASPxButton ID="btnSelectAllOnPage" runat="server" Text="Select all on the page"
+                    UseSubmitBehavior="False" AutoPostBack="false">
+                    <ClientSideEvents Click="function(s, e) { grid.SelectAllRowsOnPage(); }" />
+                </dx:ASPxButton>
+            </td>
+            <td>
+                <dx:ASPxButton ID="btnUnselectAllOnPage" runat="server" Text="Unselect all on the page"
+                    UseSubmitBehavior="False" AutoPostBack="false">
+                    <ClientSideEvents Click="function(s, e) { grid.UnselectAllRowsOnPage(); }" />
+                </dx:ASPxButton>
+            </td>
+        </tr>
+    </table>
+    <dx:ASPxGridView ID="ASPxGridView1" runat="server" ClientInstanceName="grid" AutoGenerateColumns="False"
+        DataSourceID="edMemberActivity" KeyFieldName="ID">
+        <SettingsBehavior ConfirmDelete="true" />
+        <SettingsText ConfirmDelete="Delete the record?" />
+        <SettingsCookies Enabled="true" StorePaging="true" StoreFiltering="true" />
+        <Images HeaderSortDown-Url="~/images/Down.png" HeaderSortUp-Url="~/images/Up.png">
+            <HeaderSortDown Url="~/images/Down.png">
+            </HeaderSortDown>
+            <HeaderSortUp Url="~/images/Up.png">
+            </HeaderSortUp>
+        </Images>
+        <Columns>
+            <dx:GridViewCommandColumn VisibleIndex="0" ButtonType="Image">
+                <EditButton Visible="True" Image-Url="~/images/Edit.png">
+                    <Image Url="~/images/Edit.png">
+                    </Image>
+                </EditButton>
+                <NewButton Visible="false">
+                </NewButton>
+                <DeleteButton Visible="True" Image-Url="~/images/Trash.png">
+                    <Image Url="~/images/Trash.png">
+                    </Image>
+                </DeleteButton>
+                <ClearFilterButton Visible="True">
+                </ClearFilterButton>
+                <UpdateButton Visible="true" Image-Url="~/images/OK.png">
+                    <Image Url="~/images/OK.png">
+                    </Image>
+                </UpdateButton>
+                <CancelButton Visible="true" Image-Url="~/images/Cancel.png">
+                    <Image Url="~/images/Cancel.png">
+                    </Image>
+                </CancelButton>
+                <HeaderCaptionTemplate>
+                    <dx:ASPxImage ID="btnNew" runat="server" Text="New" ImageUrl="~/images/Add.png" IsPng="true">
+                        <ClientSideEvents Click="function (s,e) { grid.AddNewRow();}" />
+                    </dx:ASPxImage>
+                </HeaderCaptionTemplate>
+            </dx:GridViewCommandColumn>
+            <dx:GridViewDataTextColumn FieldName="ID" ReadOnly="True" Visible="False" VisibleIndex="1">
+            </dx:GridViewDataTextColumn>
+            <dx:GridViewDataComboBoxColumn Caption="Activity Type" FieldName="TypeID" VisibleIndex="2">
+                <PropertiesComboBox DataSourceID="edMemActType" TextField="Description" ValueField="ID">
+                </PropertiesComboBox>
+            </dx:GridViewDataComboBoxColumn>
+            <dx:GridViewDataDateColumn FieldName="ActivityDate" VisibleIndex="3">
+            </dx:GridViewDataDateColumn>
+            <dx:GridViewDataComboBoxColumn Caption="Member" FieldName="MemberID" VisibleIndex="4">
+                <PropertiesComboBox DataSourceID="edMembers" IncrementalFilteringMode="Contains"
+                    TextField="FullName" ValueField="ID">
+                    <DropDownButton Enabled="False" Visible="False">
+                    </DropDownButton>
+                </PropertiesComboBox>
+                <Settings FilterMode="DisplayText" />
+                <EditItemTemplate>
+                    <dx:ASPxGridLookup ID="ASPxGridLookup1" runat="server" TextFormatString="{1}" DataSourceID="edMembers"
+                        KeyFieldName="ID" Value='<%# Bind("MemberID") %>' IncrementalFilteringMode="Contains"
+                        GridViewImages-HeaderSortDown-Url="images\Down.png" GridViewImages-HeaderSortUp-Url="images\Up.png">
+                        <GridViewProperties>
+                            <SettingsBehavior AllowFocusedRow="True" AllowSelectByRowClick="True" AllowSelectSingleRowOnly="True" />
+                        </GridViewProperties>
+                        <Columns>
+                            <dx:GridViewDataColumn FieldName="ID" ReadOnly="true" Visible="false" />
+                            <dx:GridViewDataColumn FieldName="FullName" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Country" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="Dojo" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="State" ReadOnly="true" />
+                            <dx:GridViewDataColumn FieldName="DateLastPaid" ReadOnly="true" />
+                            <dx:GridViewDataCheckColumn FieldName="Active" VisibleIndex="23">
+                                <PropertiesCheckEdit DisplayTextChecked="Active" 
+                                    DisplayTextUnchecked="Inactive">
+                                    <DisplayImageChecked Url="~/images/check.png" Height="21px" Width="21px">
+                                    </DisplayImageChecked>
+                                    <DisplayImageUnchecked Height="21px" Url="~/images/blank.png" Width="21px">
+                                    </DisplayImageUnchecked>
+                                </PropertiesCheckEdit>
+                            </dx:GridViewDataCheckColumn>
+                        </Columns>
+                    </dx:ASPxGridLookup>
+                </EditItemTemplate>
+            </dx:GridViewDataComboBoxColumn>
+            <dx:GridViewDataMemoColumn FieldName="ActivityDescription" VisibleIndex="5">
+                <PropertiesMemoEdit Rows="3">
+                </PropertiesMemoEdit>
+            </dx:GridViewDataMemoColumn>
+        </Columns>
+        <Settings ShowFilterRow="True" ShowFilterRowMenu="True" />
+    </dx:ASPxGridView>
+    <asp:EntityDataSource ID="edMemberActivity" runat="server" ConnectionString="name=MyNcmaEntities"
+        DefaultContainerName="MyNcmaEntities" EnableDelete="True" EnableFlattening="False"
+        EnableInsert="True" EnableUpdate="True" EntitySetName="memberactivities">
+    </asp:EntityDataSource>
+    <dx:ASPxGridViewExporter ID="ASPxGridViewExporter1" runat="server" GridViewID="AspxGridView1" 
+        ExportedRowType="Selected">
+    </dx:ASPxGridViewExporter>
+    <asp:EntityDataSource ID="edMemActType" runat="server" ConnectionString="name=MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        DefaultContainerName="MyNcmaEntities" EnableFlattening="False" EntitySetName="memberactivitytypes">
+    </asp:EntityDataSource>
+    <asp:EntityDataSource ID="edMembers" runat="server" 
+    ConnectionString="name=MyNcmaEntities" DefaultContainerName="MyNcmaEntities" ContextTypeName="NcmaMembership.MyNcmaEntities"
+        EntitySetName="vwMemberGridLookups" EnableFlattening="False" 
+            
+            Select="it.[FullName], it.[Country], it.[Dojo], it.[State], it.[DateLastPaid], it.[Active], it.[ID]">
+</asp:EntityDataSource>
+</asp:Content>
